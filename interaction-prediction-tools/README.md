@@ -1,16 +1,16 @@
 # Tutorials for using different cell-cell interaction prediction tools
 
-* iTALK
-* NicheNet
-* scTensor
-* PyMINEr
-* SoptSC
-* CellPhoneDB
-* scMLnet
-* COMUNET
-* SingleCellSignalR
-* NATMI
-* CCInx
-* celltalker
+**1. iTALK:** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/iTALK.ipynb)
+**2. NicheNet:** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/NicheNet.ipynb)
+**3. scTensor:** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/scTensor.ipynb)
+**4. PyMINEr:** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/PyMINEr.ipynb)
+**5. SoptSC:** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/SoptSC.ipynb)
+**6. CellPhoneDB:** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/CellPhoneDB.ipynb)
+**7. scMLnet:** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/scMLnet.ipynb)
+**8. COMUNET:** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/COMUNET.ipynb)
+**9. SingleCellSignalR:** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/SingleCellSignalR.ipynb)
+**10. NATMI:** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/NATMI.ipynb)
+**11. CCInx:**
+**12. celltalker:**
 
-*Last reviewed: Jun.16th, 2021*
+*Last reviewed: Jul.1st, 2021*
