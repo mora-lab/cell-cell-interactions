@@ -1,6 +1,6 @@
 # Tutorials for using different cell-cell interaction prediction tools
 
-**1. iTALK:** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/iTALK.ipynb)
+1. **iTALK** (2019): Inference of intercellular signaling networks (ligand-receptor) [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/iTALK.ipynb)
 
 **2. NicheNet:** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/NicheNet.ipynb)
 
