@@ -22,8 +22,8 @@ The following are jupyter notebook tutorials for using 12 different cell-cell in
 
 **10. NATMI (2020):** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/NATMI.ipynb)
 
-**11. CCInx:**
+**11. CCInx:** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/CCInx.ipynb)
 
-**12. celltalker:**
+**12. celltalker:** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/celltalker.ipynb)
 
-*Last reviewed: Jul.1st, 2021*
+*Last reviewed: Jul.7th, 2021*
