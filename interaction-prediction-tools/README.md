@@ -1,6 +1,8 @@
+<img src="https://github.com/mora-lab/mora-lab.github.io/blob/master/picture/MORALAB_Banner.png">
+
 # Tutorials for using different cell-cell interaction prediction tools
 
-The following are jupyter notebook tutorials for using 12 different cell-cell interaction prediction tools:
+The following are jupyter notebook tutorials for using 13 different cell-cell interaction prediction tools:
 
 **1. iTALK (2019):** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/iTALK.ipynb)
 
@@ -22,8 +24,12 @@ The following are jupyter notebook tutorials for using 12 different cell-cell in
 
 **10. NATMI (2020):** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/NATMI.ipynb)
 
-**11. CCInx:** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/CCInx.ipynb)
+**11. CellChat (2021):** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/CellChat.ipynb)
 
-**12. celltalker:** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/celltalker.ipynb)
+**12. CCInx:** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/CCInx.ipynb)
 
-*Last reviewed: Jul.7th, 2021*
+**13. celltalker:** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/celltalker.ipynb)
+
+**Comparison:** [Here](https://github.com/mora-lab/cell-cell-interactions/blob/main/interaction-prediction-tools/Comparison.ipynb)
+
+*Last reviewed: Nov.19th, 2021*
