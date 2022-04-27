@@ -1,4 +1,4 @@
-run_iTalk = function(inputdata,threshold){
+run_iTalk = function(inputdata,top){
 # data preparation
 data <- data.frame(inputdata@assays$RNA@data, stringsAsFactors = F)
 cell_type <- as.character(inputdata@active.ident)
@@ -19,7 +19,9 @@ for(comm_type in comm_list){
   res <-rbind(res,res_cat)
 }
 posi <- res[,c(4,6,1,2,3,5)]
-posi <- posi[order(posi$cell_from_mean_exprs*posi$cell_to_mean_exprs,decreasing=T),][posi$cell_from_mean_exprs*posi$cell_to_mean_exprs > threshold,] # how to define the threshold? 
+print(paste("Total predicted L-R pairs:",nrow(posi)))
+print(paste("Choose top L-R pairs:",top))
+posi <- posi[order(posi$cell_from_mean_exprs*posi$cell_to_mean_exprs,decreasing=T),][1:top,]
 colnames(posi) <- c("source","target","ligand","receptor","source_mean_exprs","target_mean_exprs")
 posi
 }

@@ -15,5 +15,6 @@ for (i in 1:length(signal)) {
   posi <- rbind(posi, singlelist)
   singlelist <- data.frame(source=NA, target=NA, ligand=NA, receptor=NA, LRscore=NA)
 }
+print(paste("Total predicted L-R pairs:",nrow(posi)))
 posi
 }

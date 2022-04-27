@@ -1,8 +1,10 @@
-run_SingleCellSignalR_SSP = function(posi,gold){
-load("git@github.com:mora-lab/cell-cell-interactions/blob/main/benchmark-workflow/R/SingleCellSignalR_LRdb.rda")
+run_SingleCellSignalR_SSP = function(posi,sample,gold){
+load("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/SingleCellSignalR_LRdb.rda")
 posi <- posi[,1:4]
 # create database with all cell pairs
 LRdb <- LRdb[,1:2]
+LRdb <- LRdb[LRdb$ligand %in% gold$ligand,]
+LRdb <- LRdb[LRdb$receptor %in% gold$receptor,]
 types <- as.character(unique(Idents(sample)))
 singlelist <- data.frame(source=NA, target=NA)
 full.database <- data.frame()

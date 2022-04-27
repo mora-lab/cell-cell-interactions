@@ -1,9 +1,10 @@
-run_iTalk_SSP = function(posi,gold){
-load("git@github.com:mora-lab/cell-cell-interactions/blob/main/benchmark-workflow/R/iTalk_LR_database.rda")
+run_iTalk_SSP = function(posi,sample,gold){
+load("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/iTalk_LR_database.rda")
 database <- database[,c(2,4)]
 colnames(database) <- c("ligand","receptor")
 posi <- posi[,1:4]
-
+database <- database[database$ligand %in% gold$ligand,]
+database <- database[database$receptor %in% gold$receptor,]
 # create database with all cell pairs
 types <- as.character(unique(Idents(sample)))
 singlelist <- data.frame(source=NA, target=NA)

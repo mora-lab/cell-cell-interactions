@@ -9,9 +9,9 @@ types <- unique(ann$Cluster)
 maxtype <- length(types)
 pval <- 0.05
 logfc <- 0.15
-LigRecLib <- "git@github.com:mora-lab/cell-cell-interactions/blob/main/benchmark-workflow/R/scMLnet_database/LigRec.txt"
-TFTarLib <- "git@github.com:mora-lab/cell-cell-interactions/blob/main/benchmark-workflow/R/scMLnet_database/TFTargetGene.txt"
-RecTFLib <- "git@github.com:mora-lab/cell-cell-interactions/blob/main/benchmark-workflow/R/scMLnet_database/RecTF.txt"
+LigRecLib <- "https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/scMLnet_database/LigRec.txt"
+TFTarLib <- "https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/scMLnet_database/TFTargetGene.txt"
+RecTFLib <- "https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/scMLnet_database/RecTF.txt"
 netList <- NULL
 for (i in 1:maxtype) {
 LigClu <- types[i]
@@ -42,5 +42,6 @@ for (i in 1:length(netList)) {
       singlelist <- data.frame(source=NA, target=NA, ligrec=NA)
    }
 }
+print(paste("Total predicted L-R pairs:",nrow(posi)))
 posi
 }

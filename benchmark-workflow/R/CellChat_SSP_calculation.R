@@ -16,11 +16,13 @@
 # }
 # modify rest complex pairs manually
 
-run_CellChat_SSP = function(full.cclist, gold){
+run_CellChat_SSP = function(full.cclist, sample, gold){
 full.cclist <- full.cclist[,1:4]
-full.dblist <- read.csv("git@github.com:mora-lab/cell-cell-interactions/blob/main/benchmark-workflow/R/CellChatDatabase.csv", header = TRUE, row.names = 1)
+full.dblist <- read.csv("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/CellChatDatabase.csv", header = TRUE, row.names = 1)
 # create database with all cell pairs
 rownames(full.dblist) <- NULL
+full.dblist <- full.dblist[full.dblist$ligand %in% gold$ligand,]
+full.dblist <- full.dblist[full.dblist$receptor %in% gold$receptor,]
 types <- as.character(unique(Idents(sample)))
 singlelist <- data.frame(source=NA, target=NA)
 full.database <- data.frame()

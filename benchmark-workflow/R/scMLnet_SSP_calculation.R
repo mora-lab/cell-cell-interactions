@@ -1,5 +1,7 @@
-run_scMLnet_SSP = function(posi,gold){
-database <- read.table("git@github.com:mora-lab/cell-cell-interactions/blob/main/benchmark-workflow/R/scMLnet_database/LigRec.txt", header = TRUE, sep = "\t")
+run_scMLnet_SSP = function(posi,sample,gold){
+database <- read.table("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/scMLnet_database/LigRec.txt", header = TRUE, sep = "\t")
+database <- database[database$Ligand %in% gold$ligand,]
+database <- database[database$Receptor %in% gold$receptor,]
 # create database with all cell pairs
 types <- as.character(unique(Idents(sample)))
 singlelist <- data.frame(source=NA, target=NA)

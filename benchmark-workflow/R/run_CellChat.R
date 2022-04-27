@@ -37,5 +37,6 @@ for (i in 1:nrow(cclist)) {
 full.cclist <- full.cclist[,c(1:6)]
 full.cclist[,1] <- as.character(full.cclist[,1])
 full.cclist[,2] <- as.character(full.cclist[,2])
+print(paste("Total predicted L-R pairs:",nrow(full.cclist)))
 full.cclist
 }
