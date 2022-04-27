@@ -1,7 +1,7 @@
-run_CCInx_SSP = function(posi,gold){
-load("git@github.com:mora-lab/cell-cell-interactions/blob/main/benchmark-workflow/R/BaderCCIeditedbyBI_human.RData")
+run_CCInx_SSP = function(posi,sample,gold){
+load("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/BaderCCIeditedbyBI_human.RData")
 database <- inxDB[,2:3]
-load("git@github.com:mora-lab/cell-cell-interactions/blob/main/benchmark-workflow/R/FANTOM5_human.RData")
+load("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/FANTOM5_human.RData")
 database2 <- inxDB[!rownames(inxDB) %in% rownames(database),2:3]
 database <- rbind(database,database2)
 posi <- posi[,1:4]
@@ -9,6 +9,9 @@ posi <- posi[,1:4]
 # create database with all cell pairs
 rownames(database) <- NULL
 colnames(database) <- c("ligand","receptor")
+database <- database[database$ligand %in% gold$ligand,]
+database <- database[database$receptor %in% gold$receptor,]
+Idents(sample) <- "cell.type"
 types <- as.character(unique(Idents(sample)))
 singlelist <- data.frame(source=NA, target=NA)
 full.database <- data.frame()
