@@ -17,10 +17,16 @@ CellChat <- computeCommunProb(CellChat)
 CellChat <- subsetCommunication(CellChat)
 
 # convert into unifined format
-cclist <- CellChat[,c(1,2,3,4,5,6,7)]
-cclist[,7] <- as.character(cclist[,7])
-full.cclist <- data.frame()
-for (i in 1:nrow(cclist)) {
+result <- try(CellChat[,1])
+
+if('try-error' %in% class(result)){
+  print(paste("Total predicted L-R pairs:",0))
+  full.cclist <- data.frame(source=NA, target=NA, ligand=NA, receptor=NA)
+  full.cclist
+}else{cclist <- CellChat[,c(1,2,3,4,5,6,7)]
+ cclist[,7] <- as.character(cclist[,7])
+ full.cclist <- data.frame()
+ for (i in 1:nrow(cclist)) {
   if("_" %in% strsplit(cclist[i,4],split = "")[[1]] || 
      "complex" %in% strsplit(cclist[i,4],split = " ")[[1]] ||
      "receptor" %in% strsplit(cclist[i,4],split = " ")[[1]]){
@@ -39,4 +45,5 @@ full.cclist[,1] <- as.character(full.cclist[,1])
 full.cclist[,2] <- as.character(full.cclist[,2])
 print(paste("Total predicted L-R pairs:",nrow(full.cclist)))
 full.cclist
+}
 }

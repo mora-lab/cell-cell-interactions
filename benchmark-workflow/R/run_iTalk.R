@@ -18,10 +18,17 @@ for(comm_type in comm_list){
   res_cat <- res_cat[ order( res_cat$cell_from_mean_exprs*res_cat$cell_to_mean_exprs, decreasing=T),]
   res <-rbind(res,res_cat)
 }
-posi <- res[,c(4,6,1,2,3,5)]
-print(paste("Total predicted L-R pairs:",nrow(posi)))
-print(paste("Choose top L-R pairs:",top))
-posi <- posi[order(posi$cell_from_mean_exprs*posi$cell_to_mean_exprs,decreasing=T),][1:top,]
-colnames(posi) <- c("source","target","ligand","receptor","source_mean_exprs","target_mean_exprs")
+
+if(nrow(res)>0){
+  posi <- res[,c(4,6,1,2,3,5)]
+  print(paste("Total predicted L-R pairs:",nrow(posi)))
+  print(paste("Choose top L-R pairs:",top))
+  posi <- posi[order(posi$cell_from_mean_exprs*posi$cell_to_mean_exprs,decreasing=T),][1:top,]
+  colnames(posi) <- c("source","target","ligand","receptor","source_mean_exprs","target_mean_exprs")
+  posi
+}else{
+print(paste("Total predicted L-R pairs:",0))
+posi <- data.frame(source=NA, target=NA, ligand=NA, receptor=NA,source_mean_exprs=NA,target_mean_exprs=NA)
 posi
+}
 }
