@@ -42,6 +42,11 @@ for (i in 1:length(netList)) {
       singlelist <- data.frame(source=NA, target=NA, ligrec=NA)
    }
 }
+if(nrow(posi) == 0){
+print(paste("Total predicted L-R pairs:",0))
+posi <- data.frame(source=NA, target=NA, ligrec=NA)
+posi}
+else{
 print(paste("Total predicted L-R pairs:",nrow(posi)))
-posi
+posi}
 }
