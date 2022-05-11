@@ -3,6 +3,12 @@ data <- data.frame(inputdata@assays$RNA@data, stringsAsFactors = F)
 cluster <- as.integer(Idents(inputdata))
 c.names <- levels(Idents(inputdata))
 signal <- cell_signaling(data = data, genes = rownames(data), cluster = cluster, c.names = c.names, write = FALSE)
+result <- try(data.frame(signal)[1], silent=TRUE)
+if('try-error' %in% class(result)){
+  print(paste("Total predicted L-R pairs:",0))
+  posi <- data.frame(source=NA, target=NA, ligand=NA, receptor=NA, LRscore=NA)
+  posi}
+else{
 posi <- data.frame()
 singlelist <- data.frame(source=NA, target=NA, ligand=NA, receptor=NA, LRscore=NA)
 for (i in 1:length(signal)) {
@@ -14,7 +20,8 @@ for (i in 1:length(signal)) {
   }
   posi <- rbind(posi, singlelist)
   singlelist <- data.frame(source=NA, target=NA, ligand=NA, receptor=NA, LRscore=NA)
-}
+  }
 print(paste("Total predicted L-R pairs:",nrow(posi)))
 posi
+}
 }
