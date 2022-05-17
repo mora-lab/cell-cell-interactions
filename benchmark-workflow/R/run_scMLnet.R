@@ -31,7 +31,7 @@ LigClu <- types[i]
 posi <- data.frame()
 singlelist <- data.frame(source=NA, target=NA, ligrec=NA)
 for (i in 1:length(netList)) {
-   if (!netList[[i]] %in% NA) {
+   if (!netList[[i]][1] %in% NA) {
       pair <- netList[[i]][[1]]
       CellA <- strsplit(names(netList)[i],split = " - ")[[1]][1]
       CellB <- strsplit(names(netList)[i],split = " - ")[[1]][2]
@@ -45,8 +45,8 @@ for (i in 1:length(netList)) {
 if(nrow(posi) == 0){
 print(paste("Total predicted L-R pairs:",0))
 posi <- data.frame(source=NA, target=NA, ligrec=NA)
-posi}
-else{
+posi
+}else{
 print(paste("Total predicted L-R pairs:",nrow(posi)))
 posi}
 }
