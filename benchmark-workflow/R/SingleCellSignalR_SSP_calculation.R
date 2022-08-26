@@ -1,5 +1,5 @@
 run_SingleCellSignalR_SSP = function(posi,sample,gold){
-load("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/SingleCellSignalR_LRdb.rda")
+  load("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/SingleCellSignalR_LRdb.rda")
 posi <- posi[,1:4]
 # create database with all cell pairs
 LRdb <- LRdb[,1:2]
@@ -36,9 +36,12 @@ TN <- nrow(falselist[!falselist$V5 %in% gold$V5,])
 FN <- nrow(falselist) - TN
 
 # calculate accuracy, sensitivity and specificity
-acc <- TP/(TP+FP)
+acc <- (TP+TN)/nrow(full.database)
 sst <- TP/(TP+FN)
 spc <- TN/(FP+TN)
-SingleCellSignalRSSP <- list(Accuracy=acc, Sensitivity=sst, Specificity=spc)
-SingleCellSignalRSSP
+tpr <- TP/(TP+FN)
+fpr <- FP/(FP+TN)
+SSP <- list(Accuracy=acc, Sensitivity=sst, Specificity=spc)
+ROC <- list(TPR=tpr,FPR=fpr)
+list(SSP=SSP,ROC=ROC)
 }

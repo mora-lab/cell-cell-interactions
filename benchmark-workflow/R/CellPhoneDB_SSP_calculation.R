@@ -1,5 +1,5 @@
 run_CellPhoneDB_SSP = function(posi,sample,gold){
-database <- read.table("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/CellPhoneDB database/CellPhoneDB%20database%202.0.0.txt", header = T,sep = "\t")
+  database <- read.table("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/CellPhoneDB database/CellPhoneDB%20database%202.0.0.txt", header = T,sep = "\t")
 genes <- unique(c(gold$ligand, gold$receptor))
 database <- database[database$geneA %in% genes & database$geneB %in% genes,]
 
@@ -35,9 +35,12 @@ TN <- nrow(falselist[!falselist$V5 %in% gold$V5,])
 FN <- nrow(falselist) - TN
 
 # calculate accuracy, sensitivity and specificity
-acc <- TP/(TP+FP)
+acc <- (TP+TN)/nrow(full.database)
 sst <- TP/(TP+FN)
 spc <- TN/(FP+TN)
-CellPhoneDBSSP <- list(Accuracy=acc, Sensitivity=sst, Specificity=spc)
-CellPhoneDBSSP
+tpr <- TP/(TP+FN)
+fpr <- FP/(FP+TN)
+SSP <- list(Accuracy=acc, Sensitivity=sst, Specificity=spc)
+ROC <- list(TPR=tpr,FPR=fpr)
+list(SSP=SSP,ROC=ROC)
 }

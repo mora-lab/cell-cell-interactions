@@ -35,9 +35,12 @@ run_NATMI_SSP = function(posi,sample,gold){
   FN <- nrow(falselist) - TN
   
   # calculate accuracy, sensitivity and specificity
-  acc <- TP/(TP+FP)
+  acc <- (TP+TN)/nrow(full.database)
   sst <- TP/(TP+FN)
   spc <- TN/(FP+TN)
-  NATMISSP <- list(Accuracy=acc, Sensitivity=sst, Specificity=spc)
-  NATMISSP
+  tpr <- TP/(TP+FN)
+  fpr <- FP/(FP+TN)
+  SSP <- list(Accuracy=acc, Sensitivity=sst, Specificity=spc)
+  ROC <- list(TPR=tpr,FPR=fpr)
+  list(SSP=SSP,ROC=ROC)
 }

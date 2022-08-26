@@ -1,5 +1,5 @@
 run_iTalk_SSP = function(posi,sample,gold){
-load("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/iTalk_LR_database.rda")
+  load("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/iTalk_LR_database.rda")
 database <- database[,c(2,4)]
 colnames(database) <- c("ligand","receptor")
 posi <- posi[,1:4]
@@ -37,9 +37,12 @@ TN <- nrow(falselist[!falselist$V5 %in% gold$V5,])
 FN <- nrow(falselist) - TN
 
 # calculate accuracy, sensitivity and specificity
-acc <- TP/(TP+FP)
+acc <- (TP+TN)/nrow(full.database)
 sst <- TP/(TP+FN)
 spc <- TN/(FP+TN)
-iTalkSSP <- list(Accuracy=acc, Sensitivity=sst, Specificity=spc)
-iTalkSSP
+tpr <- TP/(TP+FN)
+fpr <- FP/(FP+TN)
+SSP <- list(Accuracy=acc, Sensitivity=sst, Specificity=spc)
+ROC <- list(TPR=tpr,FPR=fpr)
+list(SSP=SSP,ROC=ROC)
 }

@@ -3,8 +3,8 @@ mtx <- inputdata@assays$RNA@counts
 inputdata$Cluster <- as.character(Idents(inputdata))
 inputdata@meta.data$Barcode = rownames(inputdata@meta.data)
 ann <- inputdata@meta.data[, c('Barcode', 'Cluster')]
-write.table(ann, file ='meta.tsv', sep = '\t', quote = F, row.names = F)
-annfile <- "meta.tsv"
+write.table(ann, file ='R/meta.tsv', sep = '\t', quote = F, row.names = F)
+annfile <- "R/meta.tsv"
 types <- unique(ann$Cluster)
 maxtype <- length(types)
 pval <- 0.05
@@ -19,7 +19,7 @@ LigClu <- types[i]
       if (l == i) {}
       else{
       RecClu <- types[l]
-      net <- try(RunMLnet(mtx, annfile, RecClu, LigClu, pval, logfc, LigRecLib, TFTarLib, RecTFLib), silent=FALSE)
+      net <- try(RunMLnet(mtx, annfile, RecClu, LigClu, pval, logfc, LigRecLib, TFTarLib, RecTFLib), silent=TRUE)
       if('try-error' %in% class(net))           
       {net <- NA}
       net <- list(net)
@@ -28,6 +28,7 @@ LigClu <- types[i]
       }
    }
 }
+e <- proc.time()
 posi <- data.frame()
 singlelist <- data.frame(source=NA, target=NA, ligrec=NA)
 for (i in 1:length(netList)) {
@@ -45,8 +46,12 @@ for (i in 1:length(netList)) {
 if(nrow(posi) == 0){
 print(paste("Total predicted L-R pairs:",0))
 posi <- data.frame(source=NA, target=NA, ligrec=NA)
+print("Time comsuming:")
+print(e-s)
 posi
 }else{
 print(paste("Total predicted L-R pairs:",nrow(posi)))
+print("Time comsuming:")
+print(e-s)
 posi}
 }

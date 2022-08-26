@@ -1,5 +1,5 @@
 run_CellPhoneDB_output = function(name){
-dir <- paste("cpdb/",name,"/out/significant_means.txt", sep = "")
+dir <- paste("Python/cpdb/",name,"/out/significant_means.txt", sep = "")
 posi <- read.table(dir, header = T, sep = "\t")
 list <- data.frame()
 
@@ -28,7 +28,6 @@ output <- as.data.frame(output)
 complexinter <- list[list$gene_a == ""|list$gene_b == "",]
 complex <- read.csv("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/CellPhoneDB database/complex_input.csv")
 gene <- read.csv("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/CellPhoneDB database/gene_input.csv")
-
 for (i in 1:nrow(complexinter)) {
   if (complexinter[i,3] == "" & complexinter[i,4] == "") {
     proA <- gene[gene$uniprot == complex[complex$complex_name == strsplit(complexinter$partner_a[i],split = ":")[[1]][2],2],3]
@@ -66,5 +65,6 @@ for (i in 1:nrow(complexinter)) {
     }
   }  
 }
+print(paste("Total predicted L-R pairs:",nrow(output)))
 output
 }

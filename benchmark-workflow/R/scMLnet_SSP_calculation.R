@@ -1,5 +1,5 @@
 run_scMLnet_SSP = function(posi,sample,gold){
-database <- read.table("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/scMLnet_database/LigRec.txt", header = TRUE, sep = "\t")
+  database <- read.table("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/scMLnet_database/LigRec.txt", header = TRUE, sep = "\t")
 database <- database[database$Ligand %in% gold$ligand,]
 database <- database[database$Receptor %in% gold$receptor,]
 # create database with all cell pairs
@@ -37,9 +37,12 @@ TN <- nrow(falselist[!falselist$V4 %in% gold$V6,])
 FN <- nrow(falselist) - TN
 
 # calculate accuracy, sensitivity and specificity
-acc <- TP/(TP+FP)
+acc <- (TP+TN)/nrow(full.database)
 sst <- TP/(TP+FN)
 spc <- TN/(FP+TN)
-scMLnetSSP <- list(Accuracy=acc, Sensitivity=sst, Specificity=spc)
-scMLnetSSP
+tpr <- TP/(TP+FN)
+fpr <- FP/(FP+TN)
+SSP <- list(Accuracy=acc, Sensitivity=sst, Specificity=spc)
+ROC <- list(TPR=tpr,FPR=fpr)
+list(SSP=SSP,ROC=ROC)
 }

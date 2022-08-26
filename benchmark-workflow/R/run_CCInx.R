@@ -1,6 +1,17 @@
 run_CCInx = function(inputdata,top){
+predict <- try(BuildGeneStatList(inD = inputdata, cl = inputdata@active.ident, assayType = "RNA"), silent = TRUE)
+if('try-error' %in% class(predict)){
+print("Total predicted L-R pairs: 0")
+posi <- data.frame(source=NA, target=NA, ligand=NA, receptor=NA, edgeWeight=NA)
+posi
+}else{s <- proc.time()
+f = file()
+sink(file = f, type = c("output","message"))
 gsl <- BuildGeneStatList(inD = inputdata, cl = inputdata@active.ident, assayType = "RNA")
 inx <- BuildCCInx(GeneStatList=gsl)
+e <- proc.time()
+sink()
+close(f)
 posi <- inx$edges
 print(paste("Total predicted L-R pairs:",nrow(posi)))
 posi <- posi[order(posi$edgeWeight, decreasing=T),][1:top,]
@@ -11,7 +22,9 @@ for (i in 1:nrow(posi)) {
 }
 colnames(posi) <- c("source","target","ligand","receptor", "edgeWeight")
 rownames(posi) <- NULL
-
 print(paste("Choose top L-R pairs:",top))
+print("Time comsuming:")
+print(e-s)
 posi
+}
 }

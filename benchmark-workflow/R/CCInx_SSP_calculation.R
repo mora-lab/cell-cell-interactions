@@ -1,7 +1,7 @@
 run_CCInx_SSP = function(posi,sample,gold){
-load("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/BaderCCIeditedbyBI_human.RData")
-database <- inxDB[,2:3]
-load("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/FANTOM5_human.RData")
+  load("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/BaderCCIeditedbyBI_human.RData")
+  database <- inxDB[,2:3]
+  load("https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/FANTOM5_human.RData")
 database2 <- inxDB[!rownames(inxDB) %in% rownames(database),2:3]
 database <- rbind(database,database2)
 posi <- posi[,1:4]
@@ -44,9 +44,12 @@ TN <- nrow(falselist[!falselist$V5 %in% gold$V5,])
 FN <- nrow(falselist) - TN
 
 # calculate accuracy, sensitivity and specificity
-acc <- TP/(TP+FP)
+acc <- (TP+TN)/nrow(full.database)
 sst <- TP/(TP+FN)
 spc <- TN/(FP+TN)
-CCInxSSP <- list(Accuracy=acc, Sensitivity=sst, Specificity=spc)
-CCInxSSP
+tpr <- TP/(TP+FN)
+fpr <- FP/(FP+TN)
+SSP <- list(Accuracy=acc, Sensitivity=sst, Specificity=spc)
+ROC <- list(TPR=tpr,FPR=fpr)
+list(SSP=SSP,ROC=ROC)
 }
