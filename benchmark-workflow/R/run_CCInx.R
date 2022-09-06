@@ -12,7 +12,12 @@ inx <- BuildCCInx(GeneStatList=gsl)
 e <- proc.time()
 sink()
 close(f)
-posi <- inx$edges
+ligand <- inx$nodes[inx$nodes$proteinType %in% c("Ligand","ECM/Ligand","ECM/Receptor/Ligand","Receptor/Ligand"),"node"]
+receptor <- inx$nodes[inx$nodes$proteinType %in% c("Receptor","ECM/Receptor","ECM/Receptor/Ligand","Receptor/Ligand"),"node"]
+lr <- inx$edges[(inx$edges$nodeA %in% ligand) & (inx$edges$nodeB %in% receptor),]
+rl <- inx$edges[(inx$edges$nodeB %in% ligand) & (inx$edges$nodeA %in% receptor),c("nodeB","nodeA","edgeWeight")]
+colnames(rl) <- c("nodeA","nodeB","edgeWeight")
+posi <- rbind(lr,rl)
 print(paste("Total predicted L-R pairs:",nrow(posi)))
 posi <- posi[order(posi$edgeWeight, decreasing=T),][1:top,]
 for (i in 1:nrow(posi)) {
