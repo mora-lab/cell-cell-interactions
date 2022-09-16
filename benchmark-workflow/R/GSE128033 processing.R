@@ -74,6 +74,6 @@ cell <- colnames(IPFsample[,Idents(IPFsample) %in% c("Lymphatic endothelial","Pe
 IPFsample <- subset(IPFsample, cells = cell, invert= T)
 sampledata <- unique(IPFsample$orig.ident)
 for(x in sampledata){
-  sub <- subset(IPFsample, ori.ident == x)
+  sub <- subset(IPFsample, orig.ident == x)
   saveRDS(sub,paste("GSE128033/", x, ".rds", sep = ""))
 }
