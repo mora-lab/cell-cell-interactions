@@ -28,6 +28,6 @@ cell <- colnames(IPFsample[,Idents(IPFsample) %in% c("Monocyte","Macrophage","Fi
 IPFsample <- subset(IPFsample, cells = cell) 
 sampledata <- unique(IPFsample$orig.ident)
 for(x in sampledata){
-  sub <- subset(IPFsample, ori.ident == x)
+  sub <- subset(IPFsample, orig.ident == x)
   saveRDS(sub,paste("GSE136831/", x, ".rds", sep = ""))
 }
