@@ -22,16 +22,18 @@ for(i in 1:length(types)){
   
 # create all false results list
 posi[,5] <- paste(posi[,1],posi[,2],posi[,3],posi[,4],sep = "-")
+posi[,6] <- paste(posi[,2],posi[,1],posi[,4],posi[,3],sep = "-")
 full.database[,5] <- paste(full.database[,1],full.database[,2],full.database[,3],full.database[,4],sep = "-")
 falselist <- full.database[!full.database$V5 %in% posi$V5,]
+falselist[,6] <- paste(falselist[,2],falselist[,1],falselist[,4],falselist[,3],sep = "-")
 
 # create gold standard list
 gold[,5] <- paste(gold[,1],gold[,2],gold[,3],gold[,4],sep = "-")
 
 # calculate TP,FP,TN,FN
-TP <- nrow(posi[posi$V5 %in% gold$V5,])
+TP <- nrow(posi[posi$V5 %in% gold$V5,]) + nrow(posi[posi$V6 %in% gold$V5,])
 FP <- nrow(posi) - TP
-TN <- nrow(falselist[!falselist$V5 %in% gold$V5,])
+TN <- nrow(falselist[!(falselist$V5 %in% gold$V5 | falselist$V6 %in% gold$V5),])
 FN <- nrow(falselist) - TN
 
 # calculate accuracy, sensitivity and specificity
