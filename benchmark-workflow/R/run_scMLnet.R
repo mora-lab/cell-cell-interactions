@@ -1,4 +1,5 @@
 run_scMLnet = function(inputdata){
+options(warn = -1)
 mtx <- inputdata@assays$RNA@counts
 inputdata$Cluster <- as.character(Idents(inputdata))
 inputdata@meta.data$Barcode = rownames(inputdata@meta.data)
@@ -13,13 +14,16 @@ LigRecLib <- "https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/
 TFTarLib <- "https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/scMLnet_database/TFTargetGene.txt"
 RecTFLib <- "https://raw.githubusercontent.com/mora-lab/cell-cell-interactions/main/benchmark-workflow/R/scMLnet_database/RecTF.txt"
 netList <- NULL
+f = file()
+sink(file = f, type = c("output","message"))
+s <- proc.time()
 for (i in 1:maxtype) {
 LigClu <- types[i]
     for(l in 1:maxtype) {
       if (l == i) {}
       else{
       RecClu <- types[l]
-      net <- try(RunMLnet(mtx, annfile, RecClu, LigClu, pval, logfc, LigRecLib, TFTarLib, RecTFLib), silent=TRUE)
+      net <- try(RunMLnet(mtx, annfile, RecClu, LigClu, pval, logfc, LigRecLib, TFTarLib, RecTFLib), silent = TRUE)
       if('try-error' %in% class(net))           
       {net <- NA}
       net <- list(net)
@@ -29,10 +33,13 @@ LigClu <- types[i]
    }
 }
 e <- proc.time()
+sink()
+close(f)
+speed <- data.frame(cells=ncol(inputdata), time=(e-s)[3], row.names = NULL)
 posi <- data.frame()
 singlelist <- data.frame(source=NA, target=NA, ligrec=NA)
 for (i in 1:length(netList)) {
-   if (!netList[[i]][1] %in% NA) {
+   if (!(netList[[i]][1] %in% NA | is.null(netList[[i]][[1]]))) {
       pair <- netList[[i]][[1]]
       CellA <- strsplit(names(netList)[i],split = " - ")[[1]][1]
       CellB <- strsplit(names(netList)[i],split = " - ")[[1]][2]
@@ -43,15 +50,16 @@ for (i in 1:length(netList)) {
       singlelist <- data.frame(source=NA, target=NA, ligrec=NA)
    }
 }
+
 if(nrow(posi) == 0){
-print(paste("Total predicted L-R pairs:",0))
-posi <- data.frame(source=NA, target=NA, ligrec=NA)
-print("Time comsuming:")
-print(e-s)
-posi
+posi <- data.frame(source=NA, target=NA, ligand=NA, receptor= NA)
+list(lrpairs=posi, pairs=0, speed=speed)
 }else{
-print(paste("Total predicted L-R pairs:",nrow(posi)))
-print("Time comsuming:")
-print(e-s)
-posi}
+  lr <- strsplit(posi$ligrec, split = "_")
+  colnames(posi) <- c("source", "target", "ligand")
+  for(i in 1:nrow(posi)){
+    posi[i,"ligand"] <- lr[[i]][1]
+    posi[i,"receptor"] <- lr[[i]][2]
+  }
+  list(lrpairs=posi, pairs=nrow(posi), speed=speed)}
 }

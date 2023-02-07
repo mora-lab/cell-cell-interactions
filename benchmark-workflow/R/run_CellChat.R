@@ -19,17 +19,15 @@ CellChat <- identifyOverExpressedInteractions(CellChat)
 CellChat <- computeCommunProb(CellChat)
 result <- try(subsetCommunication(CellChat), silent = TRUE)
 e <- proc.time()
+speed <- data.frame(cells=ncol(inputdata), time=(e-s)[3], row.names = NULL)
 sink()
 close(f)
-# convert into unifined format
+# convert into unified format
 if('try-error' %in% class(result)){
-  print(paste("Total predicted L-R pairs:",0))
   full.cclist <- data.frame(source=NA, target=NA, ligand=NA, receptor=NA)
-  print("Time comsuming:")
-  print(e-s)
-  full.cclist
-}else{CellChat <- subsetCommunication(CellChat)
- cclist <- CellChat[,c(1,2,3,4,5,6,7)]
+  list(lrpairs=full.cclist, pairs=0, speed=speed)
+}else{
+ cclist <- result[,c(1,2,3,4,5,6,7)]
  cclist[,7] <- as.character(cclist[,7])
  full.cclist <- data.frame()
  for (i in 1:nrow(cclist)) {
@@ -46,12 +44,9 @@ if('try-error' %in% class(result)){
   else{ full.cclist <- rbind(full.cclist, cclist[i,])
   }
 }
-full.cclist <- full.cclist[,c(1:6)]
+full.cclist <- unique(full.cclist[,c(1:6)])
 full.cclist[,1] <- as.character(full.cclist[,1])
 full.cclist[,2] <- as.character(full.cclist[,2])
-print(paste("Total predicted L-R pairs:",nrow(full.cclist)))
-print("Time comsuming:")
-print(e-s)
-full.cclist
+list(lrpairs=full.cclist, pairs=nrow(full.cclist), speed=speed)
 }
 }

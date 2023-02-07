@@ -7,6 +7,7 @@ sink(file = f, type = c("output","message"))
 s <- proc.time()
 signal <- cell_signaling(data = data, genes = rownames(data), cluster = cluster, c.names = c.names, write = FALSE)
 e <- proc.time()
+speed <- data.frame(cells=ncol(inputdata), time=(e-s)[3], row.names = NULL)
 sink()
 close(f)
 if(length(signal)>0){
@@ -22,17 +23,11 @@ if(length(signal)>0){
     posi <- rbind(posi, singlelist)
     singlelist <- data.frame(source=NA, target=NA, ligand=NA, receptor=NA, LRscore=NA)
   }
-  print(paste("Total predicted L-R pairs:",nrow(posi)))
-  print("Time comsuming:")
-  print(e-s)
-  posi
+  list(lrpairs=posi, pairs=nrow(posi), speed=speed)
 }
 else{
-  print(paste("Total predicted L-R pairs:",0))
   posi <- data.frame(source=NA, target=NA, ligand=NA, receptor=NA, LRscore=NA)
-  print("Time comsuming:")
-  print(e-s)
-  posi
+  list(lrpairs=posi, pairs=0, speed=speed)
 }
 }
 
