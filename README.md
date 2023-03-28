@@ -7,7 +7,9 @@
 
 ## Contents
 > **1. Tutorials on existing cell-cell interaction prediction tools:** [Here] (https://github.com/mora-lab/cell-cell-interactions/tree/main/interaction-prediction-tools)
+
 > **2. A workflow to benchmark available tools and identify best performers:** [Here] (https://github.com/mora-lab/cell-cell-interactions/tree/main/benchmark-workflow)
+
 > **3. Construction of an interaction database and network for the human lung:** [Here] (https://github.com/mora-lab/cell-cell-interactions/tree/main/interaction-database-and-network)
 
 *Updated March 28th 2023*
