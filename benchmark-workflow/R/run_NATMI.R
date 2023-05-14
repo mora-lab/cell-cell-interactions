@@ -9,7 +9,7 @@ run_NATMI_output = function(name,inputdata){
     list(lrpairs=posi, speed=speed, pairs=0)
   }else{posi <- read.csv(dir)
     posi <- posi[,c(1,4,2,3)]
-    colnames(posi) <- c("source","target","ligand","receptor","Specificity")
+    colnames(posi) <- c("source","target","ligand","receptor")
     list(lrpairs=posi, speed=speed, pairs=length(rownames(posi)))
   }
 }
